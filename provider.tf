@@ -11,3 +11,7 @@ provider "hcloud" {
 provider "digitalocean" {
   token = data.sops_file.secrets.data["digitalocean_api_token"]
 }
+
+provider "oci" {
+	config_file_profile = "DEFAULT" # the config is in ~/.oci/config
+}
