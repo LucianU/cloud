@@ -176,18 +176,18 @@ output "oci_arm_main_ip" {
 data "oci_objectstorage_namespace" "this" {
 }
 
-resource "oci_objectstorage_bucket" "documents" {
+resource "oci_objectstorage_bucket" "documente" {
   namespace        = data.oci_objectstorage_namespace.this.namespace
   compartment_id   = local.compartment_id
-  name             = "documents"
+  name             = "documente"
   access_type      = "NoPublicAccess"
 
   storage_tier     = "Standard"
   versioning       = "Disabled"
 }
 
-output "oci_bucket_documents_url" {
-  value = "https://${data.oci_objectstorage_namespace.this.namespace}.compat.objectstorage.${local.region}.oraclecloud.com/${oci_objectstorage_bucket.documents.name}"
+output "oci_bucket_documente_url" {
+  value = "https://${data.oci_objectstorage_namespace.this.namespace}.compat.objectstorage.${local.region}.oraclecloud.com/${oci_objectstorage_bucket.documente.name}"
 }
 
 resource "oci_objectstorage_bucket" "oak_and_reed_software_srl" {
