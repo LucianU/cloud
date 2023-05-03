@@ -10,6 +10,8 @@ provider "hcloud" {
 
 provider "digitalocean" {
   token = data.sops_file.secrets.data["digitalocean_api_token"]
+  spaces_access_id = data.sops_file.secrets.data["digitalocean_spaces_access_id"]
+  spaces_secret_key = data.sops_file.secrets.data["digitalocean_spaces_secret_key"]
 }
 
 provider "oci" {

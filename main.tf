@@ -34,6 +34,17 @@ resource "digitalocean_record" "know-staging-elbear-com" {
   ttl = 300
 }
 
+## Object Storage
+resource "digitalocean_spaces_bucket" "elb_raw_information_store" {
+  name   = "elb-raw-information-store"
+  region = "ams3"
+}
+
+resource "digitalocean_spaces_bucket" "knowledge_db_backups" {
+  name   = "knowledge-db-backups"
+  region = "fra1"
+}
+
 # Oracle
 locals {
   region = "eu-frankfurt-1"
