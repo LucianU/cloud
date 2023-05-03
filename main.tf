@@ -1,4 +1,5 @@
 # Hetzner
+## Compute
 resource "hcloud_server" "main" {
   name   = "main"
   image  = "ubuntu-22.04"
@@ -7,6 +8,7 @@ resource "hcloud_server" "main" {
 }
 
 # DigitalOcean
+## Compute
 resource "digitalocean_droplet" "do-nixos-stage" {
   name = "do-nixos-stage"
   size = "s-1vcpu-1gb"
@@ -21,7 +23,7 @@ output "droplet_ip" {
   value = digitalocean_droplet.do-nixos-stage.ipv4_address
 }
 
-# Domains
+## DNS
 resource "digitalocean_domain" "elbear-com" {
   name = "elbear.com"
 }
@@ -56,7 +58,7 @@ locals {
   ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPI+dFnzXZ0xACwp1x9hMH0FFx4+WLj7ZiXW+j2z58sc lucian@Lucians-MacBook-Pro-2.local"
 }
 
-# Networking
+## Networking
 resource "oci_core_vcn" "main_vcn" {
   compartment_id = local.compartment_id
   cidr_block     = "10.0.0.0/16"
@@ -89,7 +91,7 @@ resource "oci_core_subnet" "main_subnet" {
   route_table_id = oci_core_route_table.main_rt.id
 }
 
-# Compute Instances
+## Compute
 resource "oci_core_instance" "oci_main" {
   compartment_id = local.compartment_id
   display_name   = "oci-main"
@@ -183,7 +185,7 @@ output "oci_arm_main_ip" {
   value = oci_core_instance.oci_arm_main.public_ip
 }
 
-# Object Storage
+## Object Storage
 data "oci_objectstorage_namespace" "this" {
 }
 
