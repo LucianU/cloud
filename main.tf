@@ -36,6 +36,14 @@ resource "digitalocean_record" "know-staging-elbear-com" {
   ttl = 300
 }
 
+resource "digitalocean_record" "know_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type = "A"
+  name = "know.elbear.com"
+  value = oci_core_instance.oci_main.public_ip
+  ttl = 300
+}
+
 ## Object Storage
 resource "digitalocean_spaces_bucket" "elb_raw_information_store" {
   name   = "elb-raw-information-store"
