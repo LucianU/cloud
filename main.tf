@@ -47,6 +47,21 @@ resource "digitalocean_spaces_bucket" "knowledge_db_backups" {
   region = "fra1"
 }
 
+resource "digitalocean_spaces_bucket" "know_elbear_com" {
+  name   = "know-elbear-com"
+  region = "fra1"
+}
+
+resource "digitalocean_spaces_bucket" "haskell_elbear_com" {
+  name   = "haskell-elbear-com"
+  region = "fra1"
+}
+
+resource "digitalocean_spaces_bucket" "rust_elbear_com" {
+  name   = "rust-elbear-com"
+  region = "fra1"
+}
+
 # Oracle
 locals {
   region = "eu-frankfurt-1"
