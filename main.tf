@@ -180,7 +180,7 @@ output "oci_snd_ip" {
 resource "oci_core_instance" "oci_arm_main" {
   compartment_id = local.compartment_id
   display_name   = "oci-arm-main"
-  availability_domain = "RjdJ:EU-FRANKFURT-1-AD-1"
+  availability_domain = "RjdJ:EU-FRANKFURT-1-AD-3"
   shape          = local.oci_arm_free_shape
 
   shape_config {
@@ -191,6 +191,7 @@ resource "oci_core_instance" "oci_arm_main" {
   source_details {
     source_type = "image"
     source_id   = local.ubuntu_arm_frankfurt_image_id
+    boot_volume_size_in_gbs = "65"
   }
 
   create_vnic_details {
