@@ -28,10 +28,10 @@ resource "digitalocean_domain" "elbear-com" {
   name = "elbear.com"
 }
 
-resource "digitalocean_record" "know-staging-elbear-com" {
+resource "digitalocean_record" "know_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type = "A"
-  name = "know.staging.elbear.com"
+  name = "know.staging"
   value = digitalocean_droplet.do-nixos-stage.ipv4_address
   ttl = 300
 }
@@ -39,7 +39,7 @@ resource "digitalocean_record" "know-staging-elbear-com" {
 resource "digitalocean_record" "know_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type = "A"
-  name = "know.elbear.com"
+  name = "know"
   value = oci_core_instance.oci_main.public_ip
   ttl = 300
 }
