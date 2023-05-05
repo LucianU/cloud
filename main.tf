@@ -117,7 +117,26 @@ resource "oci_core_subnet" "main_subnet" {
   cidr_block     = "10.0.1.0/24"
   display_name   = "main-subnet"
   route_table_id = oci_core_route_table.main_rt.id
-  security_list_ids = [oci_core_security_list.web.id]
+  security_list_ids = [
+    oci_core_security_list.ssh.id,
+    oci_core_security_list.web.id
+  ]
+}
+
+resource "oci_core_security_list" "ssh" {
+  compartment_id = local.compartment_id
+  vcn_id = oci_core_vcn.main_vcn.id
+  display_name = "ssh"
+
+  # Ingress rule for SSH
+  ingress_security_rules {
+    protocol = "6" # TCP
+    source = "0.0.0.0/0"
+    tcp_options {
+      min = 22
+      max = 22
+    }
+  }
 }
 
 resource "oci_core_security_list" "web" {
@@ -139,6 +158,17 @@ resource "oci_core_security_list" "web" {
   ingress_security_rules {
     protocol = "6" # TCP
     source = "0.0.0.0/0"
+    tcp_options {
+      min = 443
+      max = 443
+    }
+  }
+
+  # Allows connection to Let's Encrypt
+  egress_security_rules {
+    destination = "0.0.0.0/0"
+    protocol    = "6" # TCP
+    stateless   = false
     tcp_options {
       min = 443
       max = 443
