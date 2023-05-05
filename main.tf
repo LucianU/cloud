@@ -117,6 +117,33 @@ resource "oci_core_subnet" "main_subnet" {
   cidr_block     = "10.0.1.0/24"
   display_name   = "main-subnet"
   route_table_id = oci_core_route_table.main_rt.id
+  security_list_ids = [oci_core_security_list.web.id]
+}
+
+resource "oci_core_security_list" "web" {
+  compartment_id = local.compartment_id
+  vcn_id = oci_core_vcn.main_vcn.id
+  display_name = "web"
+
+  # Ingress rule for HTTP
+  ingress_security_rules {
+    protocol = "6" # TCP
+    source = "0.0.0.0/0"
+    tcp_options {
+      min = 80
+      max = 80
+    }
+  }
+
+  # Ingress rule for HTTPS
+  ingress_security_rules {
+    protocol = "6" # TCP
+    source = "0.0.0.0/0"
+    tcp_options {
+      min = 443
+      max = 443
+    }
+  }
 }
 
 ## Compute
