@@ -70,6 +70,11 @@ resource "digitalocean_spaces_bucket" "rust_elbear_com" {
   region = "fra1"
 }
 
+resource "digitalocean_spaces_bucket" "stage_elbear_com" {
+  name   = "stage-elbear-com"
+  region = "fra1"
+}
+
 # Oracle
 locals {
   region = "eu-frankfurt-1"
