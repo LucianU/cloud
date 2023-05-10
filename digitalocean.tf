@@ -42,6 +42,22 @@ resource "digitalocean_record" "haskell_elbear_com" {
   ttl = 300
 }
 
+resource "digitalocean_record" "rust_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type = "A"
+  name = "rust"
+  value = oci_core_instance.oci_main.public_ip
+  ttl = 300
+}
+
+resource "digitalocean_record" "sim_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type = "A"
+  name = "sim"
+  value = oci_core_instance.oci_main.public_ip
+  ttl = 300
+}
+
 ## Object Storage
 resource "digitalocean_spaces_bucket" "elb_raw_information_store" {
   name   = "elb-raw-information-store"
@@ -65,6 +81,11 @@ resource "digitalocean_spaces_bucket" "haskell_elbear_com" {
 
 resource "digitalocean_spaces_bucket" "rust_elbear_com" {
   name   = "rust-elbear-com"
+  region = "fra1"
+}
+
+resource "digitalocean_spaces_bucket" "sim_elbear_com" {
+  name   = "sim-elbear-com"
   region = "fra1"
 }
 
