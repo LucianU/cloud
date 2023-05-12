@@ -30,7 +30,7 @@ resource "digitalocean_record" "know_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type = "A"
   name = "know"
-  value = oci_core_instance.oci_main.public_ip
+  value = hcloud_server.main.ipv4_address
   ttl = 300
 }
 
@@ -38,7 +38,7 @@ resource "digitalocean_record" "haskell_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type = "A"
   name = "haskell"
-  value = oci_core_instance.oci_main.public_ip
+  value = hcloud_server.main.ipv4_address
   ttl = 300
 }
 
@@ -46,7 +46,7 @@ resource "digitalocean_record" "rust_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type = "A"
   name = "rust"
-  value = oci_core_instance.oci_main.public_ip
+  value = hcloud_server.main.ipv4_address
   ttl = 300
 }
 
@@ -54,7 +54,7 @@ resource "digitalocean_record" "sim_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type = "A"
   name = "sim"
-  value = oci_core_instance.oci_main.public_ip
+  value = hcloud_server.main.ipv4_address
   ttl = 300
 }
 
