@@ -58,6 +58,14 @@ resource "digitalocean_record" "sim_elbear_com" {
   ttl = 300
 }
 
+resource "digitalocean_record" "publish_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type = "A"
+  name = "publish"
+  value = hcloud_server.main.ipv4_address
+  ttl = 300
+}
+
 ## Object Storage
 resource "digitalocean_spaces_bucket" "elb_raw_information_store" {
   name   = "elb-raw-information-store"
