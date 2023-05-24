@@ -124,6 +124,11 @@ resource "digitalocean_spaces_bucket" "rust_elbear_com" {
   region = "fra1"
 }
 
+resource "digitalocean_spaces_bucket" "publish_elbear_com" {
+  name   = "publish-elbear-com"
+  region = "fra1"
+}
+
 resource "digitalocean_spaces_bucket" "sim_elbear_com" {
   name   = "sim-elbear-com"
   region = "fra1"
