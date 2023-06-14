@@ -6,7 +6,7 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, config, nixpkgs, treefmt-nix }:
+  outputs = { self, nixpkgs, treefmt-nix }:
     let
       formatterOptions = {
         projectRootFile = "flake.nix";
@@ -16,17 +16,17 @@
       linux-pkgs = nixpkgs.legacyPackages.x86_64-linux;
       darwin-pkgs = nixpkgs.legacyPackages.aarch64-darwin;
       shellOptions = {
-        nativeBuildInputs = config.treefmt.build.programs;
+        nativeBuildInputs = self.treefmt.build.programs;
       };
     in
-      {
-        formatter = {
-          x86_64-linux = treefmt-nix.lib.mkWrapper linux-pkgs formatterOptions;
-          aarch64-darwin = treefmt-nix.lib.mkWrapper darwin-pkgs formatterOptions;
-        };
-        devShell = {
-          x86_64-linux = linux-pkgs.mkShell shellOptions;
-          aarch64-darwin = darwin-pkgs.mkShell shellOptions;
-        };
+    {
+      formatter = {
+        x86_64-linux = treefmt-nix.lib.mkWrapper linux-pkgs formatterOptions;
+        aarch64-darwin = treefmt-nix.lib.mkWrapper darwin-pkgs formatterOptions;
       };
+      devShell = {
+        x86_64-linux = linux-pkgs.mkShell shellOptions;
+        aarch64-darwin = darwin-pkgs.mkShell shellOptions;
+      };
+    };
 }
