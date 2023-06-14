@@ -1,8 +1,8 @@
 ## Compute
 resource "digitalocean_droplet" "do-nixos-stage" {
-  name = "do-nixos-stage"
-  size = "s-1vcpu-1gb"
-  image = "130433697" # nixos-22.11
+  name   = "do-nixos-stage"
+  size   = "s-1vcpu-1gb"
+  image  = "130433697" # nixos-22.11
   region = "fra1"
   ssh_keys = [
     "c2:25:6b:13:01:f7:bd:e1:18:55:e8:9c:6e:39:e1:d5"
@@ -20,81 +20,81 @@ resource "digitalocean_domain" "elbear-com" {
 
 resource "digitalocean_record" "know_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "know"
-  value = hcloud_server.main.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "know"
+  value  = hcloud_server.main.ipv4_address
+  ttl    = 300
 }
 
 resource "digitalocean_record" "haskell_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "haskell"
-  value = hcloud_server.main.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "haskell"
+  value  = hcloud_server.main.ipv4_address
+  ttl    = 300
 }
 
 resource "digitalocean_record" "rust_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "rust"
-  value = hcloud_server.main.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "rust"
+  value  = hcloud_server.main.ipv4_address
+  ttl    = 300
 }
 
 resource "digitalocean_record" "publish_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "publish"
-  value = hcloud_server.main.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "publish"
+  value  = hcloud_server.main.ipv4_address
+  ttl    = 300
 }
 
 resource "digitalocean_record" "sim_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "sim"
-  value = hcloud_server.main.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "sim"
+  value  = hcloud_server.main.ipv4_address
+  ttl    = 300
 }
 resource "digitalocean_record" "know_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "know.staging"
-  value = digitalocean_droplet.do-nixos-stage.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "know.staging"
+  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  ttl    = 300
 }
 
 resource "digitalocean_record" "haskell_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "haskell.staging"
-  value = digitalocean_droplet.do-nixos-stage.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "haskell.staging"
+  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  ttl    = 300
 }
 
 resource "digitalocean_record" "rust_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "rust.staging"
-  value = digitalocean_droplet.do-nixos-stage.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "rust.staging"
+  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  ttl    = 300
 }
 
 resource "digitalocean_record" "publish_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "publish.staging"
-  value = digitalocean_droplet.do-nixos-stage.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "publish.staging"
+  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  ttl    = 300
 }
 
 resource "digitalocean_record" "sim_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
-  type = "A"
-  name = "sim.staging"
-  value = digitalocean_droplet.do-nixos-stage.ipv4_address
-  ttl = 300
+  type   = "A"
+  name   = "sim.staging"
+  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  ttl    = 300
 }
 
 ## Object Storage

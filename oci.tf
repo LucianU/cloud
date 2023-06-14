@@ -1,11 +1,11 @@
 locals {
-  region = "eu-frankfurt-1"
-  compartment_id = "ocid1.tenancy.oc1..aaaaaaaamveqbo2ukrkxltgsnbqhpoyvqiatey3lbulkacv2govaqdrkmc7a"
-  ubuntu_frankfurt_image_id = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaauf4c5nxqz6x7yle4rj355zhpjd35bqrx3khoclgh22zhma42o6sq"
+  region                        = "eu-frankfurt-1"
+  compartment_id                = "ocid1.tenancy.oc1..aaaaaaaamveqbo2ukrkxltgsnbqhpoyvqiatey3lbulkacv2govaqdrkmc7a"
+  ubuntu_frankfurt_image_id     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaauf4c5nxqz6x7yle4rj355zhpjd35bqrx3khoclgh22zhma42o6sq"
   ubuntu_arm_frankfurt_image_id = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaeusqwc4fgp4c5ienodxnlvrkimp4rp4a6snpnkpudznmdlxt3wpq"
-  oci_free_shape = "VM.Standard.E2.1.Micro"
-  oci_arm_free_shape = "VM.Standard.A1.Flex"
-  ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPI+dFnzXZ0xACwp1x9hMH0FFx4+WLj7ZiXW+j2z58sc lucian@Lucians-MacBook-Pro-2.local"
+  oci_free_shape                = "VM.Standard.E2.1.Micro"
+  oci_arm_free_shape            = "VM.Standard.A1.Flex"
+  ssh_public_key                = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPI+dFnzXZ0xACwp1x9hMH0FFx4+WLj7ZiXW+j2z58sc lucian@Lucians-MacBook-Pro-2.local"
 }
 
 ## Networking
@@ -47,13 +47,13 @@ resource "oci_core_subnet" "main_subnet" {
 
 resource "oci_core_security_list" "ssh" {
   compartment_id = local.compartment_id
-  vcn_id = oci_core_vcn.main_vcn.id
-  display_name = "ssh"
+  vcn_id         = oci_core_vcn.main_vcn.id
+  display_name   = "ssh"
 
   # Ingress rule for SSH
   ingress_security_rules {
     protocol = "6" # TCP
-    source = "0.0.0.0/0"
+    source   = "0.0.0.0/0"
     tcp_options {
       min = 22
       max = 22
@@ -63,13 +63,13 @@ resource "oci_core_security_list" "ssh" {
 
 resource "oci_core_security_list" "web" {
   compartment_id = local.compartment_id
-  vcn_id = oci_core_vcn.main_vcn.id
-  display_name = "web"
+  vcn_id         = oci_core_vcn.main_vcn.id
+  display_name   = "web"
 
   # Ingress rule for HTTP
   ingress_security_rules {
     protocol = "6" # TCP
-    source = "0.0.0.0/0"
+    source   = "0.0.0.0/0"
     tcp_options {
       min = 80
       max = 80
@@ -79,7 +79,7 @@ resource "oci_core_security_list" "web" {
   # Ingress rule for HTTPS
   ingress_security_rules {
     protocol = "6" # TCP
-    source = "0.0.0.0/0"
+    source   = "0.0.0.0/0"
     tcp_options {
       min = 443
       max = 443
@@ -100,13 +100,13 @@ resource "oci_core_security_list" "web" {
 
 ## Compute
 resource "oci_core_instance" "oci_main" {
-  compartment_id = local.compartment_id
-  display_name   = "oci-main"
+  compartment_id      = local.compartment_id
+  display_name        = "oci-main"
   availability_domain = "RjdJ:EU-FRANKFURT-1-AD-2"
-  shape          = local.oci_free_shape
+  shape               = local.oci_free_shape
 
   shape_config {
-    ocpus = 1
+    ocpus         = 1
     memory_in_gbs = 1
   }
 
@@ -116,9 +116,9 @@ resource "oci_core_instance" "oci_main" {
   }
 
   create_vnic_details {
-    subnet_id = oci_core_subnet.main_subnet.id
+    subnet_id        = oci_core_subnet.main_subnet.id
     assign_public_ip = true
-    display_name = "oci-main-vnic"
+    display_name     = "oci-main-vnic"
   }
 
   metadata = {
@@ -131,13 +131,13 @@ output "oci_main_ip" {
 }
 
 resource "oci_core_instance" "oci_snd" {
-  compartment_id = local.compartment_id
-  display_name   = "oci-snd"
+  compartment_id      = local.compartment_id
+  display_name        = "oci-snd"
   availability_domain = "RjdJ:EU-FRANKFURT-1-AD-2"
-  shape          = local.oci_free_shape
+  shape               = local.oci_free_shape
 
   shape_config {
-    ocpus = 1
+    ocpus         = 1
     memory_in_gbs = 1
   }
 
@@ -147,9 +147,9 @@ resource "oci_core_instance" "oci_snd" {
   }
 
   create_vnic_details {
-    subnet_id = oci_core_subnet.main_subnet.id
+    subnet_id        = oci_core_subnet.main_subnet.id
     assign_public_ip = true
-    display_name = "oci-snd-vnic"
+    display_name     = "oci-snd-vnic"
   }
 
   metadata = {
@@ -162,26 +162,26 @@ output "oci_snd_ip" {
 }
 
 resource "oci_core_instance" "oci_arm_main" {
-  compartment_id = local.compartment_id
-  display_name   = "oci-arm-main"
+  compartment_id      = local.compartment_id
+  display_name        = "oci-arm-main"
   availability_domain = "RjdJ:EU-FRANKFURT-1-AD-3"
-  shape          = local.oci_arm_free_shape
+  shape               = local.oci_arm_free_shape
 
   shape_config {
-    ocpus = 4
+    ocpus         = 4
     memory_in_gbs = 24
   }
 
   source_details {
-    source_type = "image"
-    source_id   = local.ubuntu_arm_frankfurt_image_id
+    source_type             = "image"
+    source_id               = local.ubuntu_arm_frankfurt_image_id
     boot_volume_size_in_gbs = "65"
   }
 
   create_vnic_details {
-    subnet_id = oci_core_subnet.main_subnet.id
+    subnet_id        = oci_core_subnet.main_subnet.id
     assign_public_ip = true
-    display_name = "oci-arm-main-vnic"
+    display_name     = "oci-arm-main-vnic"
   }
 
   metadata = {
@@ -198,13 +198,13 @@ data "oci_objectstorage_namespace" "this" {
 }
 
 resource "oci_objectstorage_bucket" "documente" {
-  namespace        = data.oci_objectstorage_namespace.this.namespace
-  compartment_id   = local.compartment_id
-  name             = "documente"
-  access_type      = "NoPublicAccess"
+  namespace      = data.oci_objectstorage_namespace.this.namespace
+  compartment_id = local.compartment_id
+  name           = "documente"
+  access_type    = "NoPublicAccess"
 
-  storage_tier     = "Standard"
-  versioning       = "Disabled"
+  storage_tier = "Standard"
+  versioning   = "Disabled"
 }
 
 output "oci_bucket_documente_url" {
@@ -212,13 +212,13 @@ output "oci_bucket_documente_url" {
 }
 
 resource "oci_objectstorage_bucket" "oak_and_reed_software_srl" {
-  namespace        = data.oci_objectstorage_namespace.this.namespace
-  compartment_id   = local.compartment_id
-  name             = "oak-and-reed-software-srl"
-  access_type      = "NoPublicAccess"
+  namespace      = data.oci_objectstorage_namespace.this.namespace
+  compartment_id = local.compartment_id
+  name           = "oak-and-reed-software-srl"
+  access_type    = "NoPublicAccess"
 
-  storage_tier     = "Standard"
-  versioning       = "Disabled"
+  storage_tier = "Standard"
+  versioning   = "Disabled"
 }
 
 output "oci_bucket_oak_and_reed_software_srl_url" {
@@ -226,13 +226,13 @@ output "oci_bucket_oak_and_reed_software_srl_url" {
 }
 
 resource "oci_objectstorage_bucket" "know_elbear_com" {
-  namespace = data.oci_objectstorage_namespace.this.namespace
+  namespace      = data.oci_objectstorage_namespace.this.namespace
   compartment_id = local.compartment_id
-  name = "know-elbear-com"
-  access_type = "NoPublicAccess"
+  name           = "know-elbear-com"
+  access_type    = "NoPublicAccess"
 
   storage_tier = "Standard"
-  versioning = "Disabled"
+  versioning   = "Disabled"
 }
 
 output "oci_bucket_know_elbear_com_url" {
@@ -240,13 +240,13 @@ output "oci_bucket_know_elbear_com_url" {
 }
 
 resource "oci_objectstorage_bucket" "haskell_elbear_com" {
-  namespace = data.oci_objectstorage_namespace.this.namespace
+  namespace      = data.oci_objectstorage_namespace.this.namespace
   compartment_id = local.compartment_id
-  name = "haskell-elbear-com"
-  access_type = "NoPublicAccess"
+  name           = "haskell-elbear-com"
+  access_type    = "NoPublicAccess"
 
   storage_tier = "Standard"
-  versioning = "Disabled"
+  versioning   = "Disabled"
 }
 
 output "oci_bucket_haskell_elbear_com_url" {
@@ -254,13 +254,13 @@ output "oci_bucket_haskell_elbear_com_url" {
 }
 
 resource "oci_objectstorage_bucket" "rust_elbear_com" {
-  namespace = data.oci_objectstorage_namespace.this.namespace
+  namespace      = data.oci_objectstorage_namespace.this.namespace
   compartment_id = local.compartment_id
-  name = "rust-elbear-com"
-  access_type = "NoPublicAccess"
+  name           = "rust-elbear-com"
+  access_type    = "NoPublicAccess"
 
   storage_tier = "Standard"
-  versioning = "Disabled"
+  versioning   = "Disabled"
 }
 
 output "oci_bucket_rust_elbear_com_url" {
@@ -268,13 +268,13 @@ output "oci_bucket_rust_elbear_com_url" {
 }
 
 resource "oci_objectstorage_bucket" "publish_elbear_com" {
-  namespace = data.oci_objectstorage_namespace.this.namespace
+  namespace      = data.oci_objectstorage_namespace.this.namespace
   compartment_id = local.compartment_id
-  name = "publish-elbear-com"
-  access_type = "NoPublicAccess"
+  name           = "publish-elbear-com"
+  access_type    = "NoPublicAccess"
 
   storage_tier = "Standard"
-  versioning = "Disabled"
+  versioning   = "Disabled"
 }
 
 output "oci_bucket_publish_elbear_com_url" {
