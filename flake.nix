@@ -16,7 +16,7 @@
       linux-pkgs = nixpkgs.legacyPackages.x86_64-linux;
       darwin-pkgs = nixpkgs.legacyPackages.aarch64-darwin;
       shellOptions = {
-        nativeBuildInputs = self.treefmt.build.programs;
+        nativeBuildInputs = [];
       };
     in
     {
