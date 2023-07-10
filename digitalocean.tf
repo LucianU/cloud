@@ -1,17 +1,4 @@
 ## Compute
-resource "digitalocean_droplet" "do-nixos-stage" {
-  name   = "do-nixos-stage"
-  size   = "s-1vcpu-1gb"
-  image  = "130433697" # nixos-22.11
-  region = "fra1"
-  ssh_keys = [
-    "c2:25:6b:13:01:f7:bd:e1:18:55:e8:9c:6e:39:e1:d5"
-  ]
-}
-
-output "droplet_ip" {
-  value = digitalocean_droplet.do-nixos-stage.ipv4_address
-}
 
 ## DNS
 resource "digitalocean_domain" "elbear-com" {
@@ -61,7 +48,7 @@ resource "digitalocean_record" "know_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "know.staging"
-  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  value  = oci_core_instance.oci_main.public_ip
   ttl    = 300
 }
 
@@ -69,7 +56,7 @@ resource "digitalocean_record" "haskell_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "haskell.staging"
-  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  value  = oci_core_instance.oci_main.public_ip
   ttl    = 300
 }
 
@@ -77,7 +64,7 @@ resource "digitalocean_record" "rust_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "rust.staging"
-  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  value  = oci_core_instance.oci_main.public_ip
   ttl    = 300
 }
 
@@ -85,7 +72,7 @@ resource "digitalocean_record" "publish_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "publish.staging"
-  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  value  = oci_core_instance.oci_main.public_ip
   ttl    = 300
 }
 
@@ -93,7 +80,7 @@ resource "digitalocean_record" "sim_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "sim.staging"
-  value  = digitalocean_droplet.do-nixos-stage.ipv4_address
+  value  = oci_core_instance.oci_main.public_ip
   ttl    = 300
 }
 
