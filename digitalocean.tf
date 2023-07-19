@@ -44,6 +44,16 @@ resource "digitalocean_record" "sim_elbear_com" {
   value  = hcloud_server.main.ipv4_address
   ttl    = 300
 }
+
+
+resource "digitalocean_record" "odoo_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type   = "A"
+  name   = "odoo"
+  value  = oci_core_instance.oci_snd.public_ip
+  ttl    = 300
+}
+
 resource "digitalocean_record" "know_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
