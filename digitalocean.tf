@@ -39,23 +39,6 @@ resource "digitalocean_record" "publish_elbear_com" {
   ttl    = 300
 }
 
-resource "digitalocean_record" "sim_elbear_com" {
-  domain = digitalocean_domain.elbear-com.name
-  type   = "A"
-  name   = "sim"
-  value  = hcloud_server.main.ipv4_address
-  ttl    = 300
-}
-
-
-resource "digitalocean_record" "odoo_elbear_com" {
-  domain = digitalocean_domain.elbear-com.name
-  type   = "A"
-  name   = "odoo"
-  value  = oci_core_instance.oci_snd.public_ip
-  ttl    = 300
-}
-
 resource "digitalocean_record" "know_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
@@ -87,15 +70,6 @@ resource "digitalocean_record" "publish_staging_elbear_com" {
   value  = oci_core_instance.oci_main.public_ip
   ttl    = 300
 }
-
-resource "digitalocean_record" "sim_staging_elbear_com" {
-  domain = digitalocean_domain.elbear-com.name
-  type   = "A"
-  name   = "sim.staging"
-  value  = oci_core_instance.oci_main.public_ip
-  ttl    = 300
-}
-
 
 ## Mail
 resource "digitalocean_record" "mx01-icloud" {
@@ -147,11 +121,6 @@ resource "digitalocean_spaces_bucket" "elb_raw_information_store" {
   region = "ams3"
 }
 
-resource "digitalocean_spaces_bucket" "knowledge_db_backups" {
-  name   = "knowledge-db-backups"
-  region = "fra1"
-}
-
 resource "digitalocean_spaces_bucket" "know_elbear_com" {
   name   = "know-elbear-com"
   region = "fra1"
@@ -169,11 +138,6 @@ resource "digitalocean_spaces_bucket" "rust_elbear_com" {
 
 resource "digitalocean_spaces_bucket" "publish_elbear_com" {
   name   = "publish-elbear-com"
-  region = "fra1"
-}
-
-resource "digitalocean_spaces_bucket" "sim_elbear_com" {
-  name   = "sim-elbear-com"
   region = "fra1"
 }
 
