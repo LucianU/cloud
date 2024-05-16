@@ -1,5 +1,11 @@
 terraform {
   required_providers {
+    oci = {
+      source = "oracle/oci"
+    }
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+    }
     digitalocean = {
       source = "digitalocean/digitalocean"
     }
@@ -8,9 +14,6 @@ terraform {
     }
     sops = {
       source = "carlpett/sops"
-    }
-    oci = {
-      source = "oracle/oci"
     }
   }
 }
