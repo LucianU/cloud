@@ -1,32 +1,43 @@
-{
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
 
+{
+  description = "Cloud Env";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/23.11";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     treefmt-nix.url = "github:numtide/treefmt-nix";
-    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, treefmt-nix }:
-    let
-      formatterOptions = {
-        projectRootFile = "flake.nix";
-        programs.nixpkgs-fmt.enable = true;
-        programs.terraform.enable = true;
-      };
-      linux-pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      darwin-pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-      shellOptions = {
-        nativeBuildInputs = [ ];
-      };
-    in
-    {
-      formatter = {
-        x86_64-linux = treefmt-nix.lib.mkWrapper linux-pkgs formatterOptions;
-        aarch64-darwin = treefmt-nix.lib.mkWrapper darwin-pkgs formatterOptions;
-      };
-      devShell = {
-        x86_64-linux = linux-pkgs.mkShell shellOptions;
-        aarch64-darwin = darwin-pkgs.mkShell shellOptions;
+  outputs = inputs@{ self, nixpkgs, flake-parts, treefmt-nix }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+          "aarch64-darwin"
+          "x86_64-darwin"
+          "x86_64-linux"
+          "aarch64-linux"
+      ];
+      perSystem = { config, self', inputs', pkgs, system, ... }: {
+        devShells = {
+          default = pkgs.mkShell {
+            name = "cloud";
+            packages = with pkgs; [
+              python3
+              poetry
+              black
+              mypy
+            ];
+          };
+        };
+
+        formatter =
+          treefmt-nix.lib.mkWrapper
+            pkgs
+            {
+              projectRootFile = "flake.nix";
+              programs.nixpkgs-fmt.enable = true;
+              programs.terraform.enable = true;
+              programs.black.enable = true;
+            };
       };
     };
 }
