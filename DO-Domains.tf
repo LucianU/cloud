@@ -5,11 +5,12 @@ resource "digitalocean_domain" "elbear-com" {
 
 
 ## Subdomains
+## Wikis
 resource "digitalocean_record" "know_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "know"
-  value  = hcloud_server.main.ipv4_address
+  value  = oci_core_instance.oci_snd.public_ip
   ttl    = 300
 }
 
@@ -17,7 +18,7 @@ resource "digitalocean_record" "haskell_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "haskell"
-  value  = hcloud_server.main.ipv4_address
+  value  = oci_core_instance.oci_snd.public_ip
   ttl    = 300
 }
 
@@ -25,7 +26,7 @@ resource "digitalocean_record" "rust_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "rust"
-  value  = hcloud_server.main.ipv4_address
+  value  = oci_core_instance.oci_snd.public_ip
   ttl    = 300
 }
 
@@ -33,10 +34,12 @@ resource "digitalocean_record" "publish_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
   name   = "publish"
-  value  = hcloud_server.main.ipv4_address
+  value  = oci_core_instance.oci_snd.public_ip
   ttl    = 300
 }
 
+
+## Staging
 resource "digitalocean_record" "know_staging_elbear_com" {
   domain = digitalocean_domain.elbear-com.name
   type   = "A"
