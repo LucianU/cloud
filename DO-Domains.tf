@@ -69,6 +69,42 @@ resource "digitalocean_record" "publish_staging_elbear_com" {
   ttl    = 300
 }
 
+
+# OCI Transition
+resource "digitalocean_record" "know_oci_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type   = "A"
+  name   = "know.oci"
+  value  = oci_core_instance.oci_snd.public_ip
+  ttl    = 300
+}
+
+resource "digitalocean_record" "haskell_oci_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type   = "A"
+  name   = "haskell.oci"
+  value  = oci_core_instance.oci_snd.public_ip
+  ttl    = 300
+}
+
+resource "digitalocean_record" "rust_oci_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type   = "A"
+  name   = "rust.oci"
+  value  = oci_core_instance.oci_snd.public_ip
+  ttl    = 300
+}
+
+resource "digitalocean_record" "publish_oci_elbear_com" {
+  domain = digitalocean_domain.elbear-com.name
+  type   = "A"
+  name   = "publish.oci"
+  value  = oci_core_instance.oci_snd.public_ip
+  ttl    = 300
+}
+# END OCI Transition
+
+
 ## Mail
 resource "digitalocean_record" "mx01-icloud" {
   domain   = digitalocean_domain.elbear-com.name
