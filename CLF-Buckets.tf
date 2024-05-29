@@ -64,6 +64,17 @@ output "cloudflare_r2_bucket_publish_elbear_com_url" {
 }
 
 
+resource "cloudflare_r2_bucket" "stage_elbear_com" {
+  account_id = local.cloudflare_account_id
+  name = "stage-elbear-com"
+  location = "EEUR"
+}
+
+output "cloudflare_r2_bucket_stage_elbear_com_url" {
+  value = "https://${local.cloudflare_account_id}.r2.cloudflarestorage.com/${cloudflare_r2_bucket.stage_elbear_com.name}"
+}
+
+
 locals {
   cloudflare_account_id = "9997ad20d4c639d7d9b6e7293936ee5b"
 }
