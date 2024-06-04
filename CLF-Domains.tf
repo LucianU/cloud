@@ -6,40 +6,6 @@ resource "cloudflare_zone" "elbear_com" {
 
 
 ## Subdomains
-## OCI Transition
-resource "cloudflare_record" "know_oci_elbear_com" {
-  zone_id   = cloudflare_zone.elbear_com.id
-  type   = "A"
-  name   = "know.oci"
-  value  = oci_core_instance.oci_snd.public_ip
-  ttl    = 300
-}
-
-resource "cloudflare_record" "haskell_oci_elbear_com" {
-  zone_id   = cloudflare_zone.elbear_com.id
-  type   = "A"
-  name   = "haskell.oci"
-  value  = oci_core_instance.oci_snd.public_ip
-  ttl    = 300
-}
-
-resource "cloudflare_record" "rust_oci_elbear_com" {
-  zone_id   = cloudflare_zone.elbear_com.id
-  type   = "A"
-  name   = "rust.oci"
-  value  = oci_core_instance.oci_snd.public_ip
-  ttl    = 300
-}
-
-resource "cloudflare_record" "publish_oci_elbear_com" {
-  zone_id   = cloudflare_zone.elbear_com.id
-  type   = "A"
-  name   = "publish.oci"
-  value  = oci_core_instance.oci_snd.public_ip
-  ttl    = 300
-}
-## END OCI Transition
-
 ## PROD
 resource "cloudflare_record" "know_elbear_com" {
   zone_id   = cloudflare_zone.elbear_com.id
