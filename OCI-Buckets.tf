@@ -85,3 +85,17 @@ resource "oci_objectstorage_bucket" "publish_elbear_com" {
 output "oci_bucket_publish_elbear_com_url" {
   value = "https://${data.oci_objectstorage_namespace.this.namespace}.compat.objectstorage.${local.region}.oraclecloud.com/${oci_objectstorage_bucket.publish_elbear_com.name}"
 }
+
+resource "oci_objectstorage_bucket" "elb_raw_information_store" {
+  namespace      = data.oci_objectstorage_namespace.this.namespace
+  compartment_id = local.compartment_id
+  name           = "elb-raw-information-store"
+  access_type    = "NoPublicAccess"
+
+  storage_tier = "Standard"
+  versioning   = "Disabled"
+}
+
+output "oci_bucket_elb_raw_information_store_url" {
+  value = "https://${data.oci_objectstorage_namespace.this.namespace}.compat.objectstorage.${local.region}.oraclecloud.com/${oci_objectstorage_bucket.elb_raw_information_store.name}"
+}
