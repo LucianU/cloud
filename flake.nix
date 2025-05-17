@@ -21,6 +21,7 @@
           default = pkgs.mkShell {
             name = "cloud";
             packages = with pkgs; [
+              opentofu
               python3
               poetry
               black
