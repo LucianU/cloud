@@ -76,6 +76,27 @@ resource "oci_core_security_list" "web" {
     }
   }
 
+  # Ingress rule for HTTP sea-lions
+  ingress_security_rules {
+    protocol = "6" # TCP
+    source   = "0.0.0.0/0"
+    tcp_options {
+      min = 8000
+      max = 8000
+    }
+  }
+
+  # Allows connection to ubuntu.com hopefully
+  egress_security_rules {
+    destination = "0.0.0.0/0"
+    protocol    = "6" # TCP
+    stateless   = false
+    tcp_options {
+      min = 80
+      max = 80
+    }
+  }
+
   # Allows connection to Let's Encrypt
   egress_security_rules {
     destination = "0.0.0.0/0"
