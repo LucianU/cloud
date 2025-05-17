@@ -1,4 +1,6 @@
-\.terraform
+.terraform
 *.tfstate
+*.tfvars
+terraform.tfvars.json
 terraform.tfstate.backup
 .direnv
