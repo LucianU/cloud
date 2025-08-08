@@ -7,6 +7,14 @@ resource "cloudflare_zone" "elbear_com" {
 
 ## Subdomains
 ## PROD
+resource "cloudflare_record" "ai_elbear_com" {
+  zone_id   = cloudflare_zone.elbear_com.id
+  type   = "A"
+  name   = "ai"
+  content  = oci_core_instance.oci_arm_main.public_ip
+  ttl    = 300
+}
+
 resource "cloudflare_record" "know_elbear_com" {
   zone_id   = cloudflare_zone.elbear_com.id
   type   = "A"
