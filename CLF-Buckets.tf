@@ -1,3 +1,14 @@
+resource "cloudflare_r2_bucket" "public" {
+  account_id = local.cloudflare_account_id
+  name = "public"
+  location = "EEUR"
+}
+
+output "cloudflare_r2_bucket_public_url" {
+  value = "https://${local.cloudflare_account_id}.r2.cloudflarestorage.com/${cloudflare_r2_bucket.public.name}"
+}
+
+
 resource "cloudflare_r2_bucket" "documente" {
   account_id = local.cloudflare_account_id
   name = "documente"
