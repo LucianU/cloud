@@ -1,7 +1,7 @@
 resource "cloudflare_r2_bucket" "public" {
   account_id = local.cloudflare_account_id
-  name = "public"
-  location = "EEUR"
+  name       = "public"
+  location   = "EEUR"
 }
 
 output "cloudflare_r2_bucket_public_url" {
@@ -11,8 +11,8 @@ output "cloudflare_r2_bucket_public_url" {
 
 resource "cloudflare_r2_bucket" "documente" {
   account_id = local.cloudflare_account_id
-  name = "documente"
-  location = "EEUR"
+  name       = "documente"
+  location   = "EEUR"
 }
 
 output "cloudflare_r2_bucket_documente_url" {
@@ -22,8 +22,8 @@ output "cloudflare_r2_bucket_documente_url" {
 
 resource "cloudflare_r2_bucket" "oak_and_reed_software_srl" {
   account_id = local.cloudflare_account_id
-  name = "oak-and-reed-software-srl"
-  location = "EEUR"
+  name       = "oak-and-reed-software-srl"
+  location   = "EEUR"
 }
 
 output "cloudflare_r2_bucket_oak_and_reed_software_srl_url" {
@@ -33,8 +33,8 @@ output "cloudflare_r2_bucket_oak_and_reed_software_srl_url" {
 
 resource "cloudflare_r2_bucket" "know_elbear_com" {
   account_id = local.cloudflare_account_id
-  name = "know-elbear-com"
-  location = "EEUR"
+  name       = "know-elbear-com"
+  location   = "EEUR"
 }
 
 output "cloudflare_r2_bucket_know_elbear_com_url" {
@@ -44,8 +44,8 @@ output "cloudflare_r2_bucket_know_elbear_com_url" {
 
 resource "cloudflare_r2_bucket" "haskell_elbear_com" {
   account_id = local.cloudflare_account_id
-  name = "haskell-elbear-com"
-  location = "EEUR"
+  name       = "haskell-elbear-com"
+  location   = "EEUR"
 }
 
 output "cloudflare_r2_bucket_haskell_elbear_com_url" {
@@ -55,8 +55,8 @@ output "cloudflare_r2_bucket_haskell_elbear_com_url" {
 
 resource "cloudflare_r2_bucket" "rust_elbear_com" {
   account_id = local.cloudflare_account_id
-  name = "rust-elbear-com"
-  location = "EEUR"
+  name       = "rust-elbear-com"
+  location   = "EEUR"
 }
 
 output "cloudflare_r2_bucket_rust_elbear_com_url" {
@@ -66,8 +66,8 @@ output "cloudflare_r2_bucket_rust_elbear_com_url" {
 
 resource "cloudflare_r2_bucket" "publish_elbear_com" {
   account_id = local.cloudflare_account_id
-  name = "publish-elbear-com"
-  location = "EEUR"
+  name       = "publish-elbear-com"
+  location   = "EEUR"
 }
 
 output "cloudflare_r2_bucket_publish_elbear_com_url" {
@@ -77,8 +77,8 @@ output "cloudflare_r2_bucket_publish_elbear_com_url" {
 
 resource "cloudflare_r2_bucket" "stage_elbear_com" {
   account_id = local.cloudflare_account_id
-  name = "stage-elbear-com"
-  location = "EEUR"
+  name       = "stage-elbear-com"
+  location   = "EEUR"
 }
 
 output "cloudflare_r2_bucket_stage_elbear_com_url" {
