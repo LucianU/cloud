@@ -32,7 +32,8 @@ resource "oci_core_subnet" "main_subnet" {
   security_list_ids = [
     oci_core_security_list.ssh.id,
     oci_core_security_list.web.id,
-    oci_core_security_list.mosh.id
+    oci_core_security_list.mosh.id,
+    oci_core_security_list.wg.id
   ]
 }
 
@@ -115,7 +116,6 @@ resource "oci_core_security_list" "mosh" {
   vcn_id         = oci_core_vcn.main_vcn.id
   display_name   = "mosh"
 
-  # Ingress rule for SSH
   ingress_security_rules {
     protocol    = "17" # UDP
     source      = "0.0.0.0/0"
@@ -125,6 +125,24 @@ resource "oci_core_security_list" "mosh" {
     udp_options {
       min = 60000
       max = 60009
+    }
+  }
+}
+
+resource "oci_core_security_list" "wg" {
+  compartment_id = local.compartment_id
+  vcn_id         = oci_core_vcn.main_vcn.id
+  display_name   = "wg"
+
+  ingress_security_rules {
+    protocol    = "17" # UDP
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    stateless   = false
+
+    udp_options {
+      min = 51820
+      max = 51820
     }
   }
 }
