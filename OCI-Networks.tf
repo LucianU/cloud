@@ -32,7 +32,6 @@ resource "oci_core_subnet" "main_subnet" {
   security_list_ids = [
     oci_core_security_list.ssh.id,
     oci_core_security_list.web.id,
-    oci_core_security_list.mosh.id,
     oci_core_security_list.wg.id
   ]
 }
@@ -107,24 +106,6 @@ resource "oci_core_security_list" "web" {
     tcp_options {
       min = 443
       max = 443
-    }
-  }
-}
-
-resource "oci_core_security_list" "mosh" {
-  compartment_id = local.compartment_id
-  vcn_id         = oci_core_vcn.main_vcn.id
-  display_name   = "mosh"
-
-  ingress_security_rules {
-    protocol    = "17" # UDP
-    source      = "0.0.0.0/0"
-    source_type = "CIDR_BLOCK"
-    stateless   = false
-
-    udp_options {
-      min = 60000
-      max = 60009
     }
   }
 }
